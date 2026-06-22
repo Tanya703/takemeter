@@ -8,30 +8,32 @@ This variation makes r/TrueFilm a strong fit for a classification task because p
 
 ---
 
-## Label Taxonomy
+# Label Taxonomy
 
-### Labels
-
-- **analysis**: The post makes a structured argument supported by specific evidence from the film, such as scenes, cinematography, editing, dialogue, historical context, or comparisons.
-- **reaction**: The post primarily expresses an opinion, critique, judgment, or emotional response without substantial supporting evidence.
-
+analysis: The post makes a structured argument supported by specific evidence from the film, such as scenes, cinematography, editing, dialogue, historical context, or comparisons.
+reaction: The post primarily expresses an opinion, critique, judgment, or emotional response without substantial supporting evidence.
 These labels are mutually exclusive: each post is assigned to exactly one category based on its dominant mode of discourse.
 
----
+## 😶 analysis
 
-## Examples
+### Example 1 
+> “Upon returning to Barry Lyndon for the first time in years (a truly phenomenal film), I was struck by the complexity of its focus on masculinity, especially the manner in which these traits manifest in an honour culture – honour culture being a type of culture where violent reactions are appropriate in the defense of social slights and one’s image... From memory, I thought the film was mainly a straight satire... Although, I found upon this rewatching, that its treatment... is paradoxical and provides an extremely nuanced view...”
 
-### analysis
-
-- *No Country For Old Men – The Characterization of Sheriff Bell*: compares film and novel characterization and discusses themes, narrative structure, and meaning of the ending.  
-- *The loss of hapticness in modern cinema*: argues that digital filmmaking reduces tactile cinematic quality, supported with comparisons across directors, technologies, and films.
-
-### reaction
-
-- *Nymphomaniac Vol I & II – profound, extreme filmmaking...and not what I was expecting*: focuses on personal viewing experience and emotional response.  
-- *Disclosure Day — almost great, and that almost really hurts*: centers on disappointment and emotional reaction to the film.
+### Example 2 
+> “I'm not sure I've seen a more perfectly constructed film than Rosemary's Baby. Every scene, every shot, every performance tone and note seem to work in a completely tireless movie that spends the right amount of time and emphasis required, beat by beat. The film is like a clockwork.”
 
 ---
+
+## 😶 reaction
+
+### Example 1 
+> “It's baaaad. Soulless and flat, lacking anything resembling a vision. Characters without personality who exist only to spew trailer bait lines. We are bombarded endlessly with music and lens flares. Everything is over explained and under thought.”
+
+### Example 2 
+> “I found it to be pretty terrible mostly due to the script. The bad guys are perhaps the dumbest group of people to ever exist in film. How they managed to keep aliens a secret for so long is beyond belief.”
+
+---
+
 
 ## Hard Edge Cases
 
