@@ -161,10 +161,16 @@ The baseline model used Groq's llama-3.3-70b-versatile in a zero-shot classifica
 | Macro F1   | 0.68 |
 | Weighted F1| 0.70 |
 
+> The baseline LLM achieves relatively strong overall performance, with 70% accuracy and balanced Macro/Weighted F1 scores. The small gap between macro and weighted F1 suggests that performance is reasonably consistent across both classes, although there is still mild bias toward the majority class (`analysis`), as reflected in slightly higher weighted F1.
+
+
 | Label    | Precision | Recall | F1   |
 |----------|----------|--------|------|
 | analysis | 0.74     | 0.78   | 0.76 |
 | reaction | 0.64     | 0.58   | 0.61 |
+
+> The baseline model performs better on `analysis` than `reaction`, indicating a mild class preference. `analysis` has higher recall, meaning it is detected more reliably, while `reaction` shows lower recall, suggesting the model occasionally misclassifies subjective posts as analytical. However, both classes still retain reasonable predictive balance, showing that the zero-shot model can generalize across discourse types.
+
 
 ---
 
@@ -197,6 +203,9 @@ A learning rate of 2e-5 was used as a standard stable value for small datasets (
 | Baseline (LLM)         | 0.70     |
 | Fine-tuned DistilBERT  | 0.60     |
 
+> The fine-tuned DistilBERT model underperforms the zero-shot baseline, indicating that supervised learning did not effectively capture the decision boundary between `analysis` and `reaction`. This suggests that dataset size, class imbalance, and feature overlap between classes limited the effectiveness of fine-tuning. The degradation in performance also indicates possible overfitting to majority-class patterns.
+
+
 ---
 
 ## Confusion Matrix
@@ -206,6 +215,9 @@ A learning rate of 2e-5 was used as a standard stable value for small datasets (
 | analysis         | 18       | 0        |
 | reaction         | 12       | 0        |
 
+> The confusion matrix shows complete prediction collapse into the `analysis` class. The model correctly identifies all `analysis` examples but fails entirely on `reaction`, misclassifying every instance. This indicates a strong majority-class bias and suggests that the model learned a degenerate strategy of always predicting `analysis` rather than learning meaningful class separation.
+
+
 ---
 
 ## Per-Class Metrics
@@ -214,6 +226,8 @@ A learning rate of 2e-5 was used as a standard stable value for small datasets (
 |----------|----------|--------|------|---------|
 | analysis | 0.60     | 1.00   | 0.75 | 18      |
 | reaction | 0.00     | 0.00   | 0.00 | 12      |
+
+> The `analysis` class has perfect recall but only moderate precision, showing that the model over-predicts this class at the expense of `reaction`. In contrast, the `reaction` class has zero precision, recall, and F1, confirming complete failure to learn this category. The macro-average performance is therefore heavily skewed, while weighted metrics appear artificially inflated due to class imbalance.
 
 ---
 
@@ -267,9 +281,11 @@ After reviewing the 12 misclassified examples and using an AI tool to identify p
 
 The goal of the classifier was to distinguish between evidence-based film analysis and subjective reactions. Analysis posts were intended to be identified by the presence of specific references to scenes, cinematography, narrative structure, dialogue, or other forms of concrete support. Reaction posts were intended to capture personal opinions, emotional responses, and evaluations that lacked substantial supporting evidence.
 
-## Learned Behavior
+
+## Learned Behavior 
 
 The fine-tuned model appears to have learned a much simpler pattern than intended. Rather than distinguishing between evidence and opinion, it often treated longer, more structured posts as analysis regardless of whether they contained actual supporting evidence. As a result, many reaction posts that referenced film-related concepts or contained detailed criticism were incorrectly classified as analysis. The confusion matrix shows that the model predicted every test example as analysis, suggesting a strong bias toward the majority class. This indicates that the model relied heavily on surface-level linguistic features instead of learning the deeper distinction between structured argumentation and subjective reaction that the label taxonomy was designed to capture.
+
 ---
 
 # 🚨 Key Failure Mode
@@ -324,6 +340,7 @@ This outcome highlights an important limitation of small datasets for subjective
 # 🤖 AI Usage Disclosure
 
 I used Gemini to assist with initial label annotation for the r/TrueFilm dataset by generating preliminary classifications between `analysis` and `reaction` based on the provided taxonomy. I reviewed all outputs and corrected a subset of cases where the model over-labeled opinion-based or critique-heavy posts as `analysis`, particularly when they contained references to plot details or film elements without supporting evidence. However, many of the generated labels were already accurate and did not require modification, so the final dataset reflects a combination of AI-assisted labeling and human verification.For error analysis, I used ChatGPT to examine misclassified predictions and identify recurring patterns in the model’s mistakes. I directed it to analyze why `reaction` posts were frequently predicted as `analysis`, and it helped surface trends such as over-reliance on plot/character mentions and interpretive language. I also used ChatGPT to support the structuring and formatting of the final report, including organizing markdown sections and refining evaluation tables for clarity. While I incorporated most of the structural suggestions, I revised wording for accuracy and removed any content that did not align with the actual evaluation results. The final write-up and conclusions were manually checked to ensure consistency with the dataset and model outputs.
+
 ---
 
 # ✅ Final Conclusion
